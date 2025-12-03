@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AMPO部門動態管理系統-V3</title>
+    <title>部門動態管理系統</title>
     
     <!-- 🔥 PWA 設定：讓 Vercel 網址在手機上能安裝成 App 🔥 -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4f46e5">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="AMPO管理">
+    <meta name="apple-mobile-web-app-title" content="部門管理">
     <link rel="apple-touch-icon" href="icon.png">
     
     <!-- Tailwind CSS -->
@@ -80,15 +80,15 @@
         import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy, writeBatch } from "firebase/firestore";
 
         // ==========================================
-        // 🔥 設定區：AMPO V3 Firebase 設定 🔥
+        // 🔥 設定區：已填入新部門的 Firebase Config 🔥
         // ==========================================
         const firebaseConfig = {
-          apiKey: "AIzaSyDjEteHQgkihrun06y6qPtprJqW5CN9cgc",
-          authDomain: "ampo-schedule-v3.firebaseapp.com",
-          projectId: "ampo-schedule-v3",
-          storageBucket: "ampo-schedule-v3.firebasestorage.app",
-          messagingSenderId: "296186370750",
-          appId: "1:296186370750:web:ba7c23281ad9ab675ddcef"
+            apiKey: "AIzaSyDjEteHQgkihrun06y6qPtprJqW5CN9cgc",
+            authDomain: "ampo-schedule-v3.firebaseapp.com",
+            projectId: "ampo-schedule-v3",
+            storageBucket: "ampo-schedule-v3.firebasestorage.app",
+            messagingSenderId: "296186370750",
+            appId: "1:296186370750:web:ba7c23281ad9ab675ddcef"
         };
 
         // 初始化 Firebase
@@ -121,6 +121,7 @@
 
         const SPECIAL_TYPES = ['meeting', 'trip', 'leave'];
 
+        // 🔥 預設活動類型 🔥
         const DEFAULT_EVENT_TYPES = {
             client: { id: 'client', label: '客戶來訪', char: '客', icon: Globe, color: 'text-teal-700 bg-teal-50 border-teal-200', badge: 'bg-teal-100 text-teal-800 border border-teal-200' },
             dinner: { id: 'dinner', label: '部門聚餐', char: '聚', icon: Utensils, color: 'text-orange-700 bg-orange-50 border-orange-200', badge: 'bg-orange-100 text-orange-800 border border-orange-200' },
@@ -129,6 +130,7 @@
             announce: { id: 'announce', label: '重要公告', char: '公', icon: Megaphone, color: 'text-slate-600 bg-slate-50 border-slate-200', badge: 'bg-slate-200 text-slate-700 border border-slate-300' },
         };
 
+        // 🔥 自訂類別的色票庫 🔥
         const COLOR_PALETTES = {
             red: { label: '紅色', color: 'text-red-700 bg-red-50 border-red-200', badge: 'bg-red-100 text-red-800 border-red-200' },
             green: { label: '綠色', color: 'text-green-700 bg-green-50 border-green-200', badge: 'bg-green-100 text-green-800 border-green-200' },
@@ -452,7 +454,14 @@
             return (
                 <div className="max-w-7xl mx-auto p-4 md:p-6 pb-20">
                     <header className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 glass-panel p-4 rounded-2xl shadow-sm border border-white sticky top-2 z-20">
-                        <div className="flex items-center gap-3"><div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-xl shadow-lg shadow-indigo-200 text-white"><LayoutGrid className="w-6 h-6" /></div><div><h1 className="text-xl font-bold text-slate-800 tracking-tight">AMPO部門動態管理系統-V3</h1><p className="text-xs text-slate-500 font-medium">{viewDate.toLocaleDateString()} (V17 自訂標籤版)</p></div></div>
+                        <div className="flex items-center gap-3">
+                            <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-xl shadow-lg shadow-indigo-200 text-white">
+                                <LayoutGrid className="w-6 h-6" />
+                            </div>
+                            <div>
+                                <h1 className="text-xl font-bold text-slate-800 tracking-tight">AMPO部門動態管理系統-V3</h1>
+                            </div>
+                        </div>
                         <div className="flex flex-wrap items-center gap-3 justify-center"><div className="flex bg-slate-200 p-1 rounded-xl">
                             <button onClick={() => setCurrentView('dashboard')} className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${currentView === 'dashboard' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}><LayoutGrid className="w-3.5 h-3.5" /> 看板</button>
                             <button onClick={() => setCurrentView('week')} className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${currentView === 'week' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}><CalendarCheck className="w-3.5 h-3.5" /> 週清單</button>
