@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AMPO部門動態管理系統-V3</title>
     
-    <!-- 🔥 PWA 設定 (關鍵新增) 🔥 -->
+    <!-- 🔥 PWA 設定：讓 Vercel 網址在手機上能安裝成 App 🔥 -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4f46e5">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,8 +38,8 @@
 
         body { 
             font-family: 'Noto Sans TC', sans-serif; 
-            -webkit-tap-highlight-color: transparent;
-            overscroll-behavior-y: none;
+            -webkit-tap-highlight-color: transparent; /* 手機點擊不顯示藍框 */
+            overscroll-behavior-y: none; /* 防止手機下拉重整影響操作 */
         }
         .glass-panel {
             background: rgba(255, 255, 255, 0.95);
@@ -121,7 +121,6 @@
 
         const SPECIAL_TYPES = ['meeting', 'trip', 'leave'];
 
-        // 🔥 預設活動類型 🔥
         const DEFAULT_EVENT_TYPES = {
             client: { id: 'client', label: '客戶來訪', char: '客', icon: Globe, color: 'text-teal-700 bg-teal-50 border-teal-200', badge: 'bg-teal-100 text-teal-800 border border-teal-200' },
             dinner: { id: 'dinner', label: '部門聚餐', char: '聚', icon: Utensils, color: 'text-orange-700 bg-orange-50 border-orange-200', badge: 'bg-orange-100 text-orange-800 border border-orange-200' },
@@ -130,7 +129,6 @@
             announce: { id: 'announce', label: '重要公告', char: '公', icon: Megaphone, color: 'text-slate-600 bg-slate-50 border-slate-200', badge: 'bg-slate-200 text-slate-700 border border-slate-300' },
         };
 
-        // 🔥 自訂類別的色票庫 🔥
         const COLOR_PALETTES = {
             red: { label: '紅色', color: 'text-red-700 bg-red-50 border-red-200', badge: 'bg-red-100 text-red-800 border-red-200' },
             green: { label: '綠色', color: 'text-green-700 bg-green-50 border-green-200', badge: 'bg-green-100 text-green-800 border-green-200' },
