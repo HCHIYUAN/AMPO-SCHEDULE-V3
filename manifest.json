@@ -1,6 +1,6 @@
 {
-  "name": "DeptMember 部門管理",
-  "short_name": "DeptMember",
+  "name": "AMPO-SCHEDULE-V3",
+  "short_name": "AMPO",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f1f5f9",
